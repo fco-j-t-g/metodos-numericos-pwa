@@ -26,10 +26,10 @@ const FILES_TO_CACHE = [
 
     "./js/regression/linearRegression.js",
     "./js/regression/polynomialRegression.js",
-    "./js/regression/RegressionPage.js",
+    "./js/regression/regressionPage.js",
 
     "./js/systems/gaussJordan.js",
-    "./js/systems/SystemsPage.js"
+    "./js/systems/systemsPage.js"
 ];
 
 self.addEventListener(
