@@ -1,4 +1,4 @@
-import {gaussJordan} from "./GaussJordan.js";
+import {gaussJordan} from "./gaussJordan.js";
 
 const sizeInput =
     document.getElementById(
