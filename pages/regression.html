@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+        <title>Ajuste de Curvas</title>
+
+        <link
+            rel="stylesheet"
+            href="../css/styles.css">
+    </head>
+
+    <body>
+
+        <header>
+            <h1>
+                Ajuste de Curvas
+            </h1>
+
+            <h1>
+                <a href="../index.html">
+                    Regresar
+                </a>
+            </h1>
+        </header>
+
+        <div class="container">
+
+            <h2 class="page-title">
+                Métodos de Regresión
+            </h2>
+
+            <div class="form-group">
+                <label>
+                    Método
+                </label>
+
+                <select id="methodSelect">
+                    <option value="linear">
+                        Regresión Lineal
+                    </option>
+
+                    <option value="polynomial">
+                        Regresión Polinomial
+                    </option>
+                </select>
+            </div>
+
+            <div
+                id="degreeContainer"
+                class="form-group"
+                style="display:none;">
+
+                <label>
+                    Grado del Polinomio
+                </label>
+
+                <input
+                    id="degreeInput"
+                    type="number"
+                    min="1"
+                    value="2">
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Tabla de puntos
+                </label>
+
+                <table id="pointsTable">
+
+                    <thead>
+                        <tr>
+                            <th>x</th>
+                            <th>y</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div
+                style="
+                    display:flex;
+                    gap:10px;
+                    margin-top:15px;">
+
+                <button id="addPointBtn">
+                    Agregar Punto
+                </button>
+
+                <button id="removePointBtn">
+                    Eliminar Punto
+                </button>
+
+            </div>
+
+            <button
+                id="calculateBtn"
+                style="margin-top:15px;">
+
+                Calcular
+
+            </button>
+
+            <div
+                id="resultBox"
+                class="result-box">
+
+                Resultado
+
+            </div>
+
+            <div
+                class="result-box"
+                style="margin-top:20px;">
+
+                <h3>
+                    Datos y Ajuste
+                </h3>
+
+                <canvas
+                    id="regressionChart">
+                </canvas>
+
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.8.0/math.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script
+            type="module"
+            src="../js/regression/RegressionPage.js">
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Raíces</title>
+        <link rel="stylesheet" href="../css/styles.css">
+    </head>
+
+    <body>
+
+        <header>
+            <h1>Raíces de Ecuaciones</h1>
+            <h1><a href="../index.html">Regresar</a></h1>
+        </header>
+
+        <div class="container">
+
+            <h2 class="page-title">
+                Métodos de Raíces
+            </h2>
+
+            <div class="form-group">
+                <label>Método</label>
+                <select id="methodSelect">
+                    <option value="bisection">
+                        Bisección
+                    </option>
+
+                    <option value="newton">
+                        Newton-Raphson
+                    </option>
+
+                    <option value="secant">
+                        Secante
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Función f(x)</label>
+                <input id="functionInput" placeholder="x^3 - x - 2">
+            </div>
+
+            <div id="dynamicInputs">
+
+            </div>
+
+            <div class="form-group">
+                <label>Tolerancia</label>
+                <input id="toleranceInput" value="0.0001">
+            </div>
+
+            <button id="calculateBtn">
+                Resolver
+            </button>
+
+            <div id="resultBox" class="result-box">
+                Resultado
+            </div>
+
+            <table id="iterationsTable" style="width:100%; margin-top:20px; border-collapse:collapse;"></table>
+
+            <div class="result-box" style="margin-top:20px;">
+                <h3>Función</h3>
+                <canvas id="functionChart"></canvas>
+            </div>
+
+            <div class="result-box" style="margin-top:20px;">
+                <h3>Convergencia</h3>
+                <canvas id="rootChart"></canvas>
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.8.0/math.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="module" src="../js/roots/rootsPage.js"></script>
+    </body>
+</html>

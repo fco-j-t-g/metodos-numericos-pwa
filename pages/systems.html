@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+        <title>
+            Sistemas de Ecuaciones
+        </title>
+
+        <link
+            rel="stylesheet"
+            href="../css/styles.css">
+    </head>
+
+    <body>
+
+        <header>
+            <h1>
+                Sistemas de Ecuaciones
+            </h1>
+
+            <h1>
+                <a href="../index.html">
+                    Regresar
+                </a>
+            </h1>
+        </header>
+
+        <div class="container">
+
+            <h2 class="page-title">
+                Método de Gauss-Jordan
+            </h2>
+
+            <div class="form-group">
+
+                <label>
+                    Número de incógnitas
+                </label>
+
+                <input
+                    id="sizeInput"
+                    type="number"
+                    min="2"
+                    value="3">
+
+            </div>
+
+            <button
+                id="generateBtn">
+
+                Generar Sistema
+
+            </button>
+
+            <div id="matrixContainer" style="margin-top:20px;"></div>
+
+            <button
+                id="calculateBtn"
+                style="margin-top:15px;">
+
+                Resolver
+
+            </button>
+
+            <div
+                id="resultBox"
+                class="result-box">
+
+                Resultado
+
+            </div>
+
+            <table
+                id="stepsTable"
+                style="
+                    width:100%;
+                    margin-top:20px;
+                    border-collapse:collapse;
+                ">
+
+            </table>
+
+        </div>
+
+        <script
+            type="module"
+            src="../js/systems/SystemsPage.js">
+        </script>
+
+    </body>
+</html>
