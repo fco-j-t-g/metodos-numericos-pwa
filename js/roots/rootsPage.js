@@ -170,7 +170,7 @@ function renderFunctionChart(f){
     const curve = [];
     const xMin = -3;
     const xMax = 3;
-    tension = 0
+    const tension = 0
     const steps = 300;
 
     for(let i = 0; i <= steps; i++){
