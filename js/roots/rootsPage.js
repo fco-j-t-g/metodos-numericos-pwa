@@ -168,8 +168,8 @@ function renderFunctionChart(f){
 
     const ctx = document.getElementById("functionChart");
     const curve = [];
-    const xMin = -10;
-    const xMax = 10;
+    const xMin = -3;
+    const xMax = 3;
     const steps = 300;
 
     for(let i = 0; i <= steps; i++){
