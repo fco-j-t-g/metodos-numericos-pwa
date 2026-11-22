@@ -8,6 +8,8 @@ const plotBtn = document.getElementById("plotBtn");
 const calculateBtn = document.getElementById("calculateBtn");
 const table = document.getElementById("iterationsTable");
 const resultBox = document.getElementById("resultBox");
+const autoYScaleCheck = document.getElementById("autoYScaleCheck");
+const yRangeContainer = document.getElementById("yRangeContainer");
 let chart = null;
 let functionChart = null;
 
@@ -168,10 +170,21 @@ function renderFunctionChart(f){
 
     const ctx = document.getElementById("functionChart");
     const curve = [];
-    const xMin = -3;
-    const xMax = 3;
+    const xMin = parseFloat(document.getElementById("xMinInput").value);
+    const xMax = parseFloat(document.getElementById("xMaxInput").value);
     const tension = 0
     const steps = 300;
+    const autoScaleY = autoYScaleCheck.checked;
+    let yMin;
+    let yMax;
+    if(autoScaleY){
+        yMin = Infinity;
+        yMax = -Infinity;
+    }
+    else{
+        yMin = parseFloat(document.getElementById("yMinInput").value);
+        yMax = parseFloat(document.getElementById("yMaxInput").value);
+    }
 
     for(let i = 0; i <= steps; i++){
         const x =xMin + (xMax - xMin) * i / steps;
@@ -179,15 +192,25 @@ function renderFunctionChart(f){
         try{
             const y = f(x);
             if(Number.isFinite(y)){
-                curve.push({x, y});
-            }
+            curve.push({x, y});
+            yMin = Math.min(yMin, y);
+            yMax = Math.max(yMax, y);
+        }
         }
         catch{
             // ignorar discontinuidades
         }
     }
-
-    functionChart = new Chart(ctx, {type: "scatter",
+    if(autoScaleY){
+        const margin =(yMax - yMin) * 0.1;
+        yMin -= margin;
+        yMax += margin;
+    }
+    else{
+        yMin = parseFloat(document.getElementById("yMinInput").value);
+        yMax = parseFloat(document.getElementById("yMaxInput").value);
+    }
+    functionChart = new Chart(ctx, {type: "line",
         data: {
             datasets: [{
                 label: "f(x)", data: curve, showLine: true, borderColor: "#2563eb", borderWidth: 2, pointRadius: 0, tension: tension
@@ -196,9 +219,9 @@ function renderFunctionChart(f){
             }]
         },
         options: {
-            responsive: true, scales: {
+            responsive: true, maintainAspectRatio: false, scales: {
                 x: {type: "linear", title: {display: true, text: "x"}},
-                y: {title: {display: true, text: "f(x)"}}
+                y: {min: yMin, max: yMax, title: {display: true, text: "f(x)"}}
             }
         }
     });
@@ -212,6 +235,12 @@ function clearResults(){
         chart = null;
     }
 }
+
+// Check
+autoYScaleCheck.addEventListener("change", () => {
+        yRangeContainer.style.display = autoYScaleCheck.checked ? "none": "block";
+    }
+);
 
 // Botón gráficar
 plotBtn.addEventListener("click", () => {
@@ -304,3 +333,4 @@ methodSelect.addEventListener("change", () => {
     clearResults();
 });
 renderInputs();
+autoYScaleCheck.dispatchEvent(new Event("change"));

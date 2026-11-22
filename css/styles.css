@@ -125,3 +125,7 @@ th
     background:#1e3a8a;
     color:white;
 }
+
+#functionChart{
+    height: 600px !important;
+}
