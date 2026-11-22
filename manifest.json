@@ -1,8 +1,9 @@
 {
+    "id": "/metodos-numericos-pwa/",
     "name": "Métodos Numéricos",
     "short_name": "Numericos",
+    "start_url": "/metodos-numericos-pwa/",
     "description": "Herramienta computacional basada en métodos numéricos.",
-    "start_url": "./",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#2563eb",
