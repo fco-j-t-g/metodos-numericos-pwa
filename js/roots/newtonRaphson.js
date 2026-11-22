@@ -18,8 +18,9 @@ function validateInputs(expression, x0, tolerance, maxIterations){
 
 export function newtonRaphson(expression, x0, tolerance = 0.0001, maxIterations = 100){
     validateInputs(expression, x0, tolerance, maxIterations)
+    let functionCompiled;
      try {
-        const functionCompiled =math.compile(expression);
+        functionCompiled =math.compile(expression);
      } catch (error) {
         "La función ingresada tiene errores de sintaxis."
      }
