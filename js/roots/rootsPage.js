@@ -170,6 +170,7 @@ function renderFunctionChart(f){
     const curve = [];
     const xMin = -3;
     const xMax = 3;
+    tension = 0
     const steps = 300;
 
     for(let i = 0; i <= steps; i++){
@@ -189,7 +190,7 @@ function renderFunctionChart(f){
     functionChart = new Chart(ctx, {type: "scatter",
         data: {
             datasets: [{
-                label: "f(x)", data: curve, showLine: true, borderColor: "#2563eb", borderWidth: 2, pointRadius: 0, tension: 0.2
+                label: "f(x)", data: curve, showLine: true, borderColor: "#2563eb", borderWidth: 2, pointRadius: 0, tension: tension
             }, {
                 label: "Eje X", data: [{x:xMin,y:0}, {x:xMax,y:0}], showLine: true, borderColor: "#666", borderWidth: 1, pointRadius: 0
             }]
