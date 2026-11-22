@@ -34,8 +34,7 @@
         {
             "src": "assets/screenshots/mobile.png",
             "sizes": "390x844",
-            "type": "image/png",
-            "form_factor": "wide"
+            "type": "image/png"
         }
     ]
 }
