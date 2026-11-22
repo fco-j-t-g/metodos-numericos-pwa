@@ -4,6 +4,7 @@ import {newtonRaphson} from "./newtonRaphson.js";
 
 const methodSelect = document.getElementById("methodSelect");
 const dynamicInputs = document.getElementById("dynamicInputs");
+const plotBtn = document.getElementById("plotBtn");
 const calculateBtn = document.getElementById("calculateBtn");
 const table = document.getElementById("iterationsTable");
 const resultBox = document.getElementById("resultBox");
@@ -159,45 +160,47 @@ function renderChart(iterations, property){
     });
 }
 
-function renderFunctionChart(f, root){
+function renderFunctionChart(f){
+
     if(functionChart){
         functionChart.destroy();
     }
 
     const ctx = document.getElementById("functionChart");
-    const labels = [];
-    const values = [];
-    const start = root - 3;
-    const end = root + 3;
-    const step = (end - start) / 100;
+    const curve = [];
+    const xMin = -10;
+    const xMax = 10;
+    const steps = 300;
 
-    for(let x = start; x <= end; x += step){
-        labels.push(x);
-        values.push(f(x));
-    }
+    for(let i = 0; i <= steps; i++){
+        const x =xMin + (xMax - xMin) * i / steps;
 
-    functionChart = new Chart(ctx, {
-            type: "line", data: {
-                labels, datasets: [{
-                    label:"f(x)", data: values, borderColor: "#2563eb", fill:false, tension:0.2
-                }, {
-                    label:"Raíz", data: labels.map(x => Math.abs(x - root) < step ? 0: null), pointRadius:8, pointBackgroundColor: "red", showLine:false
-                }]
-            }, options: {
-                responsive:true, scales: {
-                    y: {
-                        title: {
-                            display:true, text:"f(x)"
-                        }
-                    }, x: {
-                        title: {
-                            display:true, text:"x"
-                        }
-                    }
-                }
+        try{
+            const y = f(x);
+            if(Number.isFinite(y)){
+                curve.push({x, y});
             }
         }
-    );
+        catch{
+            // ignorar discontinuidades
+        }
+    }
+
+    functionChart = new Chart(ctx, {type: "scatter",
+        data: {
+            datasets: [{
+                label: "f(x)", data: curve, showLine: true, borderColor: "#2563eb", borderWidth: 2, pointRadius: 0, tension: 0.2
+            }, {
+                label: "Eje X", data: [{x:xMin,y:0}, {x:xMax,y:0}], showLine: true, borderColor: "#666", borderWidth: 1, pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true, scales: {
+                x: {type: "linear", title: {display: true, text: "x"}},
+                y: {title: {display: true, text: "f(x)"}}
+            }
+        }
+    });
 }
 
 function clearResults(){
@@ -207,12 +210,23 @@ function clearResults(){
         chart.destroy();
         chart = null;
     }
-    if(functionChart){
-        functionChart.destroy();
-        functionChart = null;
-    }
 }
 
+// Botón gráficar
+plotBtn.addEventListener("click", () => {
+        try{
+            const expression = document.getElementById("functionInput").value;
+            if(!expression.trim()){
+                throw new Error("Debe ingresar una función.");
+            }
+            const f = createFunction(expression);
+            renderFunctionChart(f);
+        }
+        catch(error){
+            resultBox.innerHTML = error.message;
+        }
+    }
+);
 
 // Botón Resolver
 calculateBtn.addEventListener("click", () => {
@@ -244,10 +258,9 @@ calculateBtn.addEventListener("click", () => {
                 `;
 
                 renderBisectionIterations(result.iterations);
-                renderFunctionChart(f, result.root);
                 renderChart(result.iterations, "xr");
             }
-            if(method === "newton"){
+            else if(method === "newton"){
                 const x0 = parseFloat(document.getElementById("x0Input").value);
                 const result =newtonRaphson(expression, x0, tolerance);
 
@@ -261,10 +274,9 @@ calculateBtn.addEventListener("click", () => {
                 `;
 
                 renderNewtonIterations(result.iterations);
-                renderFunctionChart(f, result.root);
                 renderChart(result.iterations, "x");
             }
-            if(method === "secant"){
+            else if(method === "secant"){
                 const x0 = parseFloat(document.getElementById("x0Input").value);
                 const x1 = parseFloat(document.getElementById("x1Input").value);
                 const result = secant(f, x0, x1, tolerance);
@@ -278,8 +290,7 @@ calculateBtn.addEventListener("click", () => {
                 `;
 
                 renderSecantIterations(result.iterations);
-                renderFunctionChart(f, result.root);
-                renderChart(result.iterations, "xr");
+                renderChart(result.iterations, "x");
             }
         }
         catch(error){
